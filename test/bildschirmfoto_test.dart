@@ -48,25 +48,42 @@ void main() {
     if (ziel != null) await schriften();
   });
 
-  Future<void> zeigen(WidgetTester t, Size groesse, {Phase? phase}) async {
+  Future<void> zeigen(WidgetTester t, Size groesse, {Phase? phase, List<String> gruppen = const ['stweg3-eigentuemer']}) async {
     t.view.physicalSize = groesse * 2;
     t.view.devicePixelRatio = 2;
     addTearDown(t.view.reset);
-    final s = RosenwegSitzung(appAngaben, transport: Attrappe());
+    final a = Attrappe(gruppen: gruppen);
+    final s = RosenwegSitzung(appAngaben, transport: a);
     await s.starten();
     if (phase != null) s.phase = phase;
-    await t.pumpWidget(RepaintBoundary(child: RosenwegRahmen(sitzung: s, inhalt: (_) => Haupt(sitzung: s))));
+    await t.pumpWidget(const SizedBox()); // frischer Zustand je Foto
+    await t.pumpWidget(RepaintBoundary(child: RosenwegRahmen(sitzung: s, inhalt: (_) => Haupt(sitzung: s, anlage: a))));
     await t.runAsync(() => precacheImage(appAngaben.logo!, t.element(find.byType(MaterialApp))));
     await t.runAsync(() => precacheImage(const AssetImage('assets/logo/rosenweg-mein-telefon-klein.png'), t.element(find.byType(MaterialApp))));
     await t.pumpAndSettle();
   }
 
+  Future<void> bereich(WidgetTester t, String titel) async {
+    await t.tap(find.text(titel).last);
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 500));
+  }
+
   testWidgets('Fotos', (t) async {
     await zeigen(t, const Size(412, 860));
     await foto(t, 'rosenweg-mein-telefon-handy.png');
-    await zeigen(t, const Size(1200, 800));
+    await bereich(t, 'Geräte');
+    await foto(t, 'rosenweg-mein-telefon-geraete.png');
+    await bereich(t, 'Anmelde-QR');
+    await foto(t, 'rosenweg-mein-telefon-qr.png');
+    await zeigen(t, const Size(1200, 800), gruppen: const ['technik']);
     await foto(t, 'rosenweg-mein-telefon-station.png');
+    await bereich(t, 'Alle Handys');
+    await t.pumpAndSettle();
+    await foto(t, 'rosenweg-mein-telefon-technik.png');
     await zeigen(t, const Size(412, 860), phase: Phase.abgemeldet);
     await foto(t, 'rosenweg-mein-telefon-anmelden.png');
+    await t.pumpWidget(const SizedBox());
+    await t.pump(const Duration(seconds: 61));
   }, skip: ziel == null);
 }
