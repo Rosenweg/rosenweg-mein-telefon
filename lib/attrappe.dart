@@ -64,6 +64,8 @@ class Attrappe implements Transport {
   @override
   Future<ApiAntwort> senden(String methode, String pfad, {Object? koerper}) async {
     anfragen.add((methode: methode, pfad: pfad, koerper: koerper));
+    // Haupt-API auf geteilten Telefonen: /api/telefonanlage/* reicht an die Anlage weiter
+    if (pfad.startsWith('/api/telefonanlage/')) pfad = '/api/telefon/${pfad.substring('/api/telefonanlage/'.length)}';
     final z = erzwungen.remove('$methode $pfad');
     if (z != null) return z;
     final k = koerper is Map ? koerper : const {};

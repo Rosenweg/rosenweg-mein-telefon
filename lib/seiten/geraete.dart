@@ -338,8 +338,9 @@ class _HandyVerbinden extends StatelessWidget {
             icon: const Icon(Icons.download_outlined),
             label: const Text('Apps-Seite öffnen'),
           ),
-          const SizedBox(height: 8),
-          OutlinedButton.icon(
+          if (!api.istGeteiltesTelefon) ...[
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute<void>(
@@ -352,6 +353,7 @@ class _HandyVerbinden extends StatelessWidget {
             icon: const Icon(Icons.qr_code_2),
             label: const Text('Andere App mit QR anmelden'),
           ),
+          ],
         ]),
       ),
     );
