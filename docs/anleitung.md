@@ -53,8 +53,9 @@ Jeder Code gilt einmal und nur kurz; die App holt von selbst einen neuen.
 **Alle Handys** (nur Technik und Präsident) – alle eigenen Handys mit Rosenweg
 Telefon; „Sperren“, wenn ein Handy verloren ging.
 
-Auf einem geteilten Telefon zeigt die App nur einen Hinweis: einstellen geht am
-eigenen Handy, am Computer oder im Portal unter „Mein Telefon“.
+Auf einem geteilten Telefon geht alles für die Person, die dort gerade mit Karte
+oder QR angemeldet ist – ausser „Alle Handys“ und dem Anmelde-QR für Apps (dafür
+das eigene Handy oder den Computer nehmen).
 
 ## Aktualisieren
 

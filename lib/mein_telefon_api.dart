@@ -6,9 +6,7 @@ import 'daten.dart';
 
 /// Alle Aufrufe der App.
 ///
-/// Zwei Dienste, beide mit dem Zugang der Anmeldung (Rosenweg-Konto, Karte,
-/// QR, Kerberos – die Telefonanlage prueft das Token ueber `/api/auth/me` der
-/// Haupt-API, darum gilt jede Anmeldung der Basis auch dort):
+/// Zwei Dienste:
 ///
 ///  * [pbx] Telefonanlage `pbx.rosenweg4303.ch` (pbx/api/app.py): Nummer,
 ///    Erreichbarkeit, geteilte Telefone, Rosenweg Telefon auf eigenen Handys,
@@ -16,22 +14,29 @@ import 'daten.dart';
 ///  * [web] Haupt-API `rosenweg4303.ch`: Anmelde-QR fuer Apps, Messenger-
 ///    Zugaenge, Karten-/QR-Sitzungen der Apps
 ///
-/// Auf geteilten Telefonen gibt es kein Token (Rosenweg Geraet stellt die
-/// Anfragen, und nur an die Haupt-API) – dort zeigt die App einen Hinweis
-/// statt der Seiten ([istGeteiltesTelefon]).
+/// Eigenes Handy, Computer, Station: die Anlage direkt mit dem Zugang der
+/// Anmeldung (Konto, Karte, QR, Kerberos – die Anlage prueft das Token ueber
+/// `/api/auth/me` der Haupt-API).
+///
+/// Geteiltes Telefon: kein Token; Rosenweg Geraet reicht Anfragen nur an die
+/// Haupt-API. Dort reicht `/api/telefonanlage/*` die Anfragen dieser App an
+/// die Anlage weiter, im Auftrag der Person am Telefon und nur fuer sie
+/// (Website api/routes/telefonanlage.js) – [AnlageUeberHauptApi].
 class MeinTelefonApi {
   MeinTelefonApi({required this.web, required this.pbx, this.istGeteiltesTelefon = false});
 
-  /// Fuer die App: Haupt-API aus der Sitzung, die Anlage mit demselben Zugang.
-  /// [transport] ersetzt beide (Attrappe).
-  factory MeinTelefonApi.fuer(RosenwegSitzung s, {Transport? transport}) => MeinTelefonApi(
-        web: s.api,
-        pbx: RosenwegApi(
-          transport ?? HttpTransport(basis: telefonanlage, zugang: s.zugang),
-          nichtAngemeldet: s.nichtMehrAngemeldet,
-        ),
-        istGeteiltesTelefon: s.geteiltesTelefon,
-      );
+  /// Fuer die App. [transport] ersetzt Haupt-API und Anlage (Attrappe, Tests).
+  factory MeinTelefonApi.fuer(RosenwegSitzung s, {Transport? transport}) {
+    final geteilt = s.geteiltesTelefon;
+    final Transport anlage = geteilt
+        ? AnlageUeberHauptApi(transport ?? s.api.transport)
+        : transport ?? HttpTransport(basis: telefonanlage, zugang: s.zugang);
+    return MeinTelefonApi(
+      web: s.api,
+      pbx: RosenwegApi(anlage, nichtAngemeldet: geteilt ? s.api.nichtAngemeldet : s.nichtMehrAngemeldet),
+      istGeteiltesTelefon: geteilt,
+    );
+  }
 
   final RosenwegApi web;
   final RosenwegApi pbx;
@@ -107,4 +112,24 @@ class MeinTelefonApi {
   Future<List<SipZugang>> alleSipZugaenge() async => [for (final z in _liste(await pbx.get('/api/pbx/sip-privat'))) SipZugang.aus(z)];
 
   Future<void> sipZugangSperren(int id) => pbx.delete('/api/pbx/sip-privat/$id');
+}
+
+/// Geteiltes Telefon: Anfragen an die Anlage (`/api/telefon/…`) gehen ueber die
+/// Haupt-API (`/api/telefonanlage/…`, mit dem Transport von Rosenweg Geraet).
+/// Die Technik-Pfade der Anlage (`/api/pbx/…`) gibt es dort nicht.
+class AnlageUeberHauptApi implements Transport {
+  AnlageUeberHauptApi(this.haupt);
+  final Transport haupt;
+
+  static String? umschreiben(String pfad) =>
+      pfad.startsWith('/api/telefon/') ? '/api/telefonanlage/${pfad.substring('/api/telefon/'.length)}' : null;
+
+  @override
+  Future<ApiAntwort> senden(String methode, String pfad, {Object? koerper}) {
+    final neu = umschreiben(pfad);
+    if (neu == null) {
+      return Future.value((status: 403, json: {'error': 'Auf einem geteilten Telefon nicht möglich.'}));
+    }
+    return haupt.senden(methode, neu, koerper: koerper);
+  }
 }

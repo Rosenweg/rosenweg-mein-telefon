@@ -8,6 +8,7 @@ import 'package:rosenweg_basis/rosenweg_basis.dart';
 import 'package:rosenweg_mein_telefon/app.dart';
 import 'package:rosenweg_mein_telefon/attrappe.dart';
 import 'package:rosenweg_mein_telefon/daten.dart';
+import 'package:rosenweg_mein_telefon/mein_telefon_api.dart';
 import 'package:rosenweg_mein_telefon/seiten/haupt.dart';
 
 void main() {
@@ -212,11 +213,39 @@ void main() {
     await ende(t);
   });
 
-  testWidgets('Geteiltes Telefon: Hinweis, keine Anfrage an die Anlage', (t) async {
-    final a = await zeigen(t, const Size(412, 900), geteilt: true);
-    expect(find.textContaining('Dies ist ein geteiltes Telefon'), findsOneWidget);
-    expect(a.anfragen.where((r) => r.pfad.startsWith('/api/telefon')), isEmpty);
+  testWidgets('Geteiltes Telefon: Anlage über die Haupt-API (/api/telefonanlage), nur für sich selbst', (t) async {
+    final a = await zeigen(t, const Size(412, 1600), gruppen: const ['technik'], geteilt: true);
+    expect(find.text('300107'), findsOneWidget);
+    expect(a.anfragen.any((r) => r.pfad == '/api/telefonanlage/ich'), isTrue);
+    expect(a.anfragen.where((r) => r.pfad.startsWith('/api/telefon/')), isEmpty, reason: 'nie direkt an die Anlage');
+    expect(find.text('Alle Handys'), findsNothing, reason: 'Technik-Liste nicht am geteilten Telefon');
+
+    // Erreichbarkeit speichern
+    await t.tap(find.text('Keine Weiterleitung'));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Speichern'));
+    await t.pumpAndSettle();
+    expect(a.anfragen.any((r) => r.methode == 'PUT' && r.pfad == '/api/telefonanlage/ich/erreichbarkeit'), isTrue);
+
+    // Geraete und Anmelde-QR (nur fuer geteilte Telefone, ohne Umschalter)
+    await zu(t, 'Geräte');
+    await t.pumpAndSettle();
+    expect(a.anfragen.any((r) => r.pfad == '/api/telefonanlage/meine'), isTrue);
+    expect(find.text('Telefon Waschküche Haus 9'), findsOneWidget);
+    await zu(t, 'Anmelde-QR');
+    await t.pump();
+    expect(find.text('App auf eigenem Handy'), findsNothing);
+    expect(find.byType(QrImageView), findsOneWidget);
+    expect(a.anfragen.any((r) => r.methode == 'POST' && r.pfad == '/api/telefonanlage/ausweis'), isTrue);
     await ende(t);
+  });
+
+  test('Geteiltes Telefon: Technik-Pfade der Anlage gibt es dort nicht', () async {
+    final a = Attrappe(gruppen: const ['technik']);
+    final u = AnlageUeberHauptApi(a);
+    expect(AnlageUeberHauptApi.umschreiben('/api/telefon/2041/suchen'), '/api/telefonanlage/2041/suchen');
+    expect((await u.senden('GET', '/api/pbx/sip-privat')).status, 403);
+    expect(a.anfragen, isEmpty);
   });
 
   testWidgets('Fehler der Anlage zeigt Nochmals und lädt neu', (t) async {

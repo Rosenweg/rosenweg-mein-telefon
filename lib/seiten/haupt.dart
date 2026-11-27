@@ -40,7 +40,7 @@ class _HauptState extends State<Haupt> {
   @override
   void initState() {
     super.initState();
-    // Rechte nur fuer den Technik-Bereich "Alle Handys"
+    // Rechte nur fuer den Technik-Bereich "Alle Handys" (nicht auf geteilten Telefonen)
     if (!widget.sitzung.geteiltesTelefon) {
       WidgetsBinding.instance.addPostFrameCallback((_) => widget.sitzung.rechte.laden().ignore());
     }
@@ -53,17 +53,6 @@ class _HauptState extends State<Haupt> {
       padding: const EdgeInsets.all(10),
       child: Image.asset('assets/logo/rosenweg-mein-telefon-klein.png', semanticLabel: 'Logo'),
     );
-    // Geteiltes Telefon: Rosenweg Geraet fragt nur die Haupt-API an, die
-    // Telefonanlage ist von hier nicht erreichbar. Einstellen geht am eigenen
-    // Handy oder Computer; An- und Abmelden macht das Telefon selbst.
-    if (s.geteiltesTelefon) {
-      return RosenwegGeruest(
-        titel: Text(s.app.name),
-        logo: logo,
-        aktionen: [_Menue(sitzung: s)],
-        inhalt: const _GeteiltesTelefonHinweis(),
-      );
-    }
     return ListenableBuilder(
       listenable: s.rechte,
       builder: (context, _) => RosenwegGeruest(
@@ -87,9 +76,13 @@ class _HauptState extends State<Haupt> {
             titel: 'Anmelde-QR',
             symbol: Icons.qr_code_2_outlined,
             gewaehltSymbol: Icons.qr_code_2,
-            seite: (_) => AnmeldeQrSeite(api: _api),
+            // geteiltes Telefon: nur der Code fuer ein (anderes) geteiltes Telefon; ein App-QR
+            // braucht das Rosenweg-Konto (die Haupt-API gibt ihn mit dem Anlage-Token nicht aus)
+            seite: (_) => AnmeldeQrSeite(api: _api, nur: s.geteiltesTelefon ? QrArt.telefon : null),
           ),
-          if (s.rechte.stand?.alles == true)
+          // Technik-Liste nicht auf geteilten Telefonen (dort nur fuer die Person am Telefon).
+          // Spaeter in "Rosenweg Geteilte Telefone" (Stefan 27.11.2026).
+          if (s.rechte.stand?.alles == true && !s.geteiltesTelefon)
             GeruestZiel(
               titel: 'Alle Handys',
               symbol: Icons.admin_panel_settings_outlined,
@@ -100,22 +93,6 @@ class _HauptState extends State<Haupt> {
       ),
     );
   }
-}
-
-class _GeteiltesTelefonHinweis extends StatelessWidget {
-  const _GeteiltesTelefonHinweis();
-
-  @override
-  Widget build(BuildContext context) => ListView(
-        padding: const EdgeInsets.all(16),
-        children: const [
-          Hinweis('Dies ist ein geteiltes Telefon. An- und abmelden geht hier mit der Rosenweg-Karte oder dem '
-              'Anmelde-QR am Sperrbildschirm.'),
-          SizedBox(height: 12),
-          Hinweis('Deine Nummer, Weiterleitung und Voicemail stellst du in Rosenweg Mein Telefon auf deinem '
-              'eigenen Handy oder am Computer ein – oder im Portal unter „Mein Telefon“.'),
-        ],
-      );
 }
 
 /// Menue oben rechts: Anmeldung (echter Stand), Ueber, Abmelden (nicht auf

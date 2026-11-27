@@ -33,10 +33,14 @@ Computer links), für Technik und Präsident ein vierter:
 | Anmelde-QR | Code für ein geteiltes Telefon (Sperrbildschirm) oder für eine Rosenweg-App auf dem eigenen Handy; gilt einmal und kurz, wird von selbst erneuert; meldet, welche App ihn eingelöst hat | `pbx/web/telefon.html`, `smartphones.html` |
 | Alle Handys (Technik, Präsident) | alle eigenen Handys mit Rosenweg Telefon (`<nummer>-p<id>`), Zugang sperren | `smartphones.html` |
 
-Auf einem **geteilten Telefon** zeigt die App nur einen Hinweis: Rosenweg Gerät
-reicht Anfragen nur an die Haupt-API weiter, die Telefonanlage ist von dort nicht
-erreichbar; an- und abmelden macht das Telefon selbst. Auf eigenen Handys greift
-die App nicht ins Android-Telefon ein (kein Telecom-Framework).
+Auf einem **geteilten Telefon** stellt die Person, die dort angemeldet ist, ihre
+Nummer genauso ein (Entscheid Stefan 27.11.2026). Rosenweg Gerät reicht Anfragen nur
+an die Haupt-API; die leitet die Anfragen dieser App an die Telefonanlage weiter
+(siehe API). Dort fehlen „Alle Handys“ und der App-QR (braucht das Rosenweg-Konto).
+Auf eigenen Handys greift die App nicht ins Android-Telefon ein (kein Telecom-Framework).
+
+„Alle Handys“ ist ein Technik-Bereich und bleibt vorerst hier; er wandert später
+in **Rosenweg Geteilte Telefone** (Stefan, 27.11.2026).
 
 Ausführlich: [docs/anleitung.md](docs/anleitung.md).
 
@@ -56,6 +60,12 @@ gilt jede Anmeldung der Basis auch dort (`lib/mein_telefon_api.dart`).
 | Haupt-API `rosenweg4303.ch` | `POST /api/apps/qr-ausweis`, `GET /api/apps/qr-ausweis/:id` | Anmelde-QR für Apps (RWAPP1; nur mit Rosenweg-Konto, nicht mit Karte) |
 | | `GET /api/messenger/zugaenge`, `DELETE /api/messenger/zugaenge/:id` | Rosenweg Messenger auf eigenen Handys |
 | | `GET /api/apps/sitzungen`, `DELETE /api/apps/sitzungen/:id` | Karten-/QR-/Handy-Sitzungen der Apps |
+| | `/api/telefonanlage/…` | nur geteilte Telefone: dieselben Anlage-Pfade (`ich`, `ich/erreichbarkeit`, `meine`, `ausweis`, `privat/:id`, `:ext/abmelden`, `:ext/suchen`) über die Haupt-API, im Auftrag der Person am Telefon (Website `api/routes/telefonanlage.js`) |
+
+Auf geteilten Telefonen braucht die Anlage in `portal_pfade` für
+`ch.rosenweg4303.meintelefon`: `/api/telefonanlage/`, `GET /api/messenger/zugaenge`,
+`DELETE /api/messenger/zugaenge/`, `GET /api/apps/sitzungen`, `DELETE /api/apps/sitzungen/`
+(steht im Standard der Anlage).
 
 ## Entwickeln
 
