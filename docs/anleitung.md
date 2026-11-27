@@ -17,7 +17,44 @@ Telefon an – in der App gibt es dann kein „Abmelden“.
 
 ## Bedienung
 
-*(Hier beschreiben, was die App kann – Bereiche, wichtigste Abläufe, wer was darf.)*
+Rosenweg Mein Telefon stellt deine Rosenweg-Nummer ein. Telefonieren tust du
+mit **Rosenweg Telefon**.
+
+**Nummer** – deine Nummer (Knopf rechts kopiert sie). Darunter die Erreichbarkeit:
+
+- *Keine Weiterleitung*: es klingelt nur auf deinen Geräten.
+- *Weiterleiten, wenn ich nicht abnehme*: zuerst deine Geräte, nach der gewählten
+  Zeit die Nummer, die du angibst.
+- *Immer weiterleiten*: nur die angegebene Nummer klingelt.
+- *Voicemail*: nimmt niemand ab, kann man eine Nachricht hinterlassen (hören in
+  Rosenweg Telefon, gelöscht nach 90 Tagen).
+
+„Speichern“ geht, sobald du etwas geändert hast; „Verwerfen“ stellt den alten
+Stand wieder her. Es gilt ab dem nächsten Anruf. Anrufe nach aussen kosten die
+Gemeinschaft Gebühren.
+
+**Geräte** – oben die geteilten Telefone, an denen du angemeldet bist. Die Glocke
+lässt ein verlegtes Telefon 45 Sekunden klingeln; die App meldet, wenn jemand
+dort „Gefunden“ tippt. „Anmelden“ zeigt den Anmelde-QR für ein geteiltes Telefon.
+Unten deine eigenen Handys, jedes einmal mit seinen Rosenweg-Apps. „Abmelden“
+meldet eine App ab, „Alle Apps auf diesem Handy abmelden“ alle (Handy verloren?).
+„Verbinden“ erklärt, wie deine Nummer auch auf deinem Handy klingelt.
+
+**Anmelde-QR** – oben wählen, wofür:
+
+- *Geteiltes Telefon*: am gesperrten Telefon „QR-Code scannen“ tippen und den
+  Code davor halten. Einfacher: Rosenweg-Karte hinten ans Telefon halten.
+- *App auf eigenem Handy*: in der Rosenweg-App auf dem Handy „QR-Code scannen“
+  tippen. Die App zeigt, sobald sie angemeldet ist, und holt den nächsten Code.
+  Geht nur, wenn du hier mit dem Rosenweg-Konto angemeldet bist (nicht mit der Karte).
+
+Jeder Code gilt einmal und nur kurz; die App holt von selbst einen neuen.
+
+**Alle Handys** (nur Technik und Präsident) – alle eigenen Handys mit Rosenweg
+Telefon; „Sperren“, wenn ein Handy verloren ging.
+
+Auf einem geteilten Telefon zeigt die App nur einen Hinweis: einstellen geht am
+eigenen Handy, am Computer oder im Portal unter „Mein Telefon“.
 
 ## Aktualisieren
 

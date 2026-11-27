@@ -22,3 +22,8 @@ const appAngaben = RosenwegApp(
 /// --dart-define=RW_ATTRAPPE=1: ohne Anmeldung und ohne Server, mit
 /// erfundenen Vorfuehrdaten (Entwicklung, Bildschirmfotos, Tests).
 const attrappe = bool.fromEnvironment('RW_ATTRAPPE');
+
+/// Telefonanlage (pbx/api/app.py der Website, CT 220): Nummer, Erreichbarkeit,
+/// Geraete, Anmelde-QR fuer geteilte Telefone. Sie prueft das Token der
+/// Anmeldung ueber `/api/auth/me` der Haupt-API.
+const telefonanlage = 'https://pbx.rosenweg4303.ch';

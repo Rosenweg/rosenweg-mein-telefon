@@ -22,7 +22,40 @@ Herunterladen: [www.rosenweg4303.ch/apps](https://www.rosenweg4303.ch/apps).
 
 ## Bedienung
 
-Siehe [docs/anleitung.md](docs/anleitung.md).
+Für alle mit einer Rosenweg-Nummer. Abgrenzung: **Rosenweg Telefon** (Fossify)
+telefoniert, **Rosenweg Mein Telefon** stellt ein. Drei Bereiche (Handy unten,
+Computer links), für Technik und Präsident ein vierter:
+
+| Bereich | Was | Web-Vorbild |
+|---|---|---|
+| Nummer | eigene Nummer (kopieren), Erreichbarkeit: keine / bei Nichtabnehmen nach x s / immer weiterleiten, Zielnummer, Voicemail; Gruppen (z. B. Ring-Group Technik) | `mein-telefon.html` |
+| Geräte | geteilte Telefone, an denen man angemeldet ist (klingeln lassen, abmelden, „Anmelden“ → Anmelde-QR); eigene Handys je Handy einmal mit ihren Rosenweg-Apps (Telefon, Messenger, Karten-/QR-Sitzungen), einzeln oder alle abmelden; „Verbinden“ erklärt Rosenweg Telefon aufs eigene Handy | `mein-telefon.html`, `smartphones.html` („Hier bist du angemeldet“, `js/meine-geraete.js`) |
+| Anmelde-QR | Code für ein geteiltes Telefon (Sperrbildschirm) oder für eine Rosenweg-App auf dem eigenen Handy; gilt einmal und kurz, wird von selbst erneuert; meldet, welche App ihn eingelöst hat | `pbx/web/telefon.html`, `smartphones.html` |
+| Alle Handys (Technik, Präsident) | alle eigenen Handys mit Rosenweg Telefon (`<nummer>-p<id>`), Zugang sperren | `smartphones.html` |
+
+Auf einem **geteilten Telefon** zeigt die App nur einen Hinweis: Rosenweg Gerät
+reicht Anfragen nur an die Haupt-API weiter, die Telefonanlage ist von dort nicht
+erreichbar; an- und abmelden macht das Telefon selbst. Auf eigenen Handys greift
+die App nicht ins Android-Telefon ein (kein Telecom-Framework).
+
+Ausführlich: [docs/anleitung.md](docs/anleitung.md).
+
+## API
+
+Zwei Dienste, beide mit dem Zugang der Anmeldung (Konto, Karte, QR, Kerberos).
+Die Telefonanlage prüft das Token über `GET /api/auth/me` der Haupt-API, darum
+gilt jede Anmeldung der Basis auch dort (`lib/mein_telefon_api.dart`).
+
+| Dienst | Pfad | wofür |
+|---|---|---|
+| Telefonanlage `pbx.rosenweg4303.ch` | `GET /api/telefon/ich`, `PUT /api/telefon/ich/erreichbarkeit` | Nummer, Erreichbarkeit, Gruppen |
+| | `GET /api/telefon/meine`, `DELETE /api/telefon/privat/:id` | geteilte Telefone, Handys mit Rosenweg Telefon |
+| | `POST /api/telefon/:ext/abmelden`, `POST`/`GET /api/telefon/:ext/suchen` | am geteilten Telefon abmelden, klingeln lassen |
+| | `POST /api/telefon/ausweis` | Anmelde-QR für geteilte Telefone (RWTEL1) |
+| | `GET /api/pbx/sip-privat`, `DELETE /api/pbx/sip-privat/:id` | Technik: alle Handy-Zugänge |
+| Haupt-API `rosenweg4303.ch` | `POST /api/apps/qr-ausweis`, `GET /api/apps/qr-ausweis/:id` | Anmelde-QR für Apps (RWAPP1; nur mit Rosenweg-Konto, nicht mit Karte) |
+| | `GET /api/messenger/zugaenge`, `DELETE /api/messenger/zugaenge/:id` | Rosenweg Messenger auf eigenen Handys |
+| | `GET /api/apps/sitzungen`, `DELETE /api/apps/sitzungen/:id` | Karten-/QR-/Handy-Sitzungen der Apps |
 
 ## Entwickeln
 
