@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+  <!-- Hintergrund des DMG-Fensters (640x420), erzeugt von rosenweg-basis
+       werkzeug/logo/app-symbole.sh aus werkzeug/logo/dmg-hintergrund.svg (Titel und
+       Logo = assets/logo/<app>-klein.svg eingesetzt). Symbole liegt Finder darueber:
+       App bei (165,215), Programme bei (475,215), siehe dmg-einstellungen.py. -->
+  <defs>
+    <linearGradient id="grund" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F7EFEA"/>
+    </linearGradient>
+    <marker id="spitze" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#D32F2F"/>
+    </marker>
+  </defs>
+  <rect width="640" height="420" fill="url(#grund)"/>
+  <!-- Weg als leises Band ueber den Grund, wie im Wappen -->
+  <path d="M-20 360 C 140 330 260 350 360 372 C 470 396 560 380 660 352 L660 440 L-20 440 Z" fill="#D32F2F" opacity="0.07"/>
+  <!-- Kopf: Wappen + Name -->
+  <svg x="32" y="26" width="54" height="54" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs><clipPath id="feld"><rect width="1024" height="1024" rx="224"/></clipPath></defs>
+  <g clip-path="url(#feld)">
+  <rect width="1024" height="1024" fill="#D62828"/>
+  <g transform="translate(24 14) scale(0.83)"><path fill="#9E1E1E" d="M-300 643 L-20 623 C 200 553 430 573 620 643 C 800 703 920 663 1044 613 L1400 583 V1400 H-300 Z"/><path d="M293 653 C 323 753 543 723 553 813 C 563 903 353 933 333 1060 L323 1400" fill="none" stroke="#3E0B0B" stroke-width="139"/><path d="M293 653 C 323 753 543 723 553 813 C 563 903 353 933 333 1060 L323 1400" fill="none" stroke="#FFFFFF" stroke-width="104"/><g transform="translate(78.0 124.5) scale(1.5)"><path fill="#FFFFFF" fill-rule="evenodd" d="M138.5 17L18 81H260Z M37 89H243V115H37Z M64 89V115H95V89Z M125 89V115H157V89Z M187 89V115H215V89Z M37 123H242V146H37Z M46 152H229L241 359H46Z M115 359V287A28.5 28.5 0 0 1 172 287V359Z"/></g><path d="M740 442 C 750 590 700 640 690 770" fill="none" stroke="#3E0B0B" stroke-width="52" stroke-linecap="round"/><path d="M740 442 C 750 590 700 640 690 770" fill="none" stroke="#2E7D32" stroke-width="34" stroke-linecap="round"/><ellipse cx="645" cy="580" rx="82" ry="42" transform="rotate(-28 645 580)" fill="#43A047" stroke="#3E0B0B" stroke-width="15"/><ellipse cx="810" cy="620" rx="82" ry="42" transform="rotate(24 810 620)" fill="#43A047" stroke="#3E0B0B" stroke-width="15"/><path d="M894.0 330.0 L891.5 343.3 L884.8 355.5 L875.2 366.2 L865.0 375.5 L855.9 384.0 L849.1 393.0 L844.7 403.3 L841.9 415.5 L839.0 429.0 L834.5 442.6 L827.3 454.6 L817.0 463.4 L804.3 467.9 L790.3 468.1 L776.2 465.2 L763.1 461.0 L751.1 457.4 L740.0 456.0 L728.9 457.4 L716.9 461.0 L703.8 465.2 L689.7 468.1 L675.7 467.9 L663.0 463.4 L652.7 454.6 L645.5 442.6 L641.0 429.0 L638.1 415.5 L635.3 403.3 L630.9 393.0 L624.1 384.0 L615.0 375.5 L604.8 366.2 L595.2 355.5 L588.5 343.3 L586.0 330.0 L588.5 316.7 L595.2 304.5 L604.8 293.8 L615.0 284.5 L624.1 276.0 L630.9 267.0 L635.3 256.7 L638.1 244.5 L641.0 231.0 L645.5 217.4 L652.7 205.4 L663.0 196.6 L675.7 192.1 L689.7 191.9 L703.8 194.8 L716.9 199.0 L728.9 202.6 L740.0 204.0 L751.1 202.6 L763.1 199.0 L776.2 194.8 L790.3 191.9 L804.3 192.1 L817.0 196.6 L827.3 205.4 L834.5 217.4 L839.0 231.0 L841.9 244.5 L844.7 256.7 L849.1 267.0 L855.9 276.0 L865.0 284.5 L875.2 293.8 L884.8 304.5 L891.5 316.7 L894.0 330.0Z" fill="#F25A5A" stroke="#3E0B0B" stroke-width="22" stroke-linejoin="round"/><path d="M674.2 353.9 A70.0 70.0 0 1 1 763.9 395.8" fill="none" stroke="#3E0B0B" stroke-width="22" stroke-linecap="round"/></g>
+  </g>
+  <circle cx="772" cy="782" r="214" fill="#D62828"/>
+  <circle cx="772" cy="782" r="190" fill="#FFFFFF"/>
+  <g transform="translate(637.0 647.0) scale(0.6750)" fill="#D62828"><!-- Material Symbols Rounded (call, settings), Apache-2.0, siehe werkzeug/logo/zeichen/LIZENZEN.md -->
+  <g transform="translate(-14.0 -14.0) scale(0.41667) translate(0 960)"><path d="M799.13-100.78q-128.39 0-253.78-55.91-125.39-55.92-228.79-158.74-103.39-103.4-159.3-229.07-55.91-125.67-55.91-254.07 0-25.91 17.08-43.28 17.09-17.37 43-17.37h161.44q27 0 44.78 14.31 17.79 14.3 23.18 39.17l25.43 128.13q4.26 24.48-.72 41.7-4.97 17.21-19.76 30.3l-100.39 93.48q17.74 30.78 41.85 60.76 24.11 29.98 54.85 59.72 28.17 28.17 56.52 50.71 28.35 22.55 58.43 40.03L605-397.18q15.22-14.65 35.37-20.28 20.15-5.63 42.63-1.37l122.74 26.31q25.87 7.39 39.67 23.82 13.81 16.44 13.81 41.31v165.96q0 25.91-17.37 43.28t-42.72 17.37Z"/></g>
+  <g transform="translate(186.0 186.0) scale(0.22917) translate(0 960)"><path d="M422.26-60.78q-29.83 0-51.3-19.41-21.48-19.42-25.48-48.24l-9-66.57q-8.48-3.3-16.31-8.04-7.82-4.74-15.43-9.92l-61.44 26q-27.26 11.57-55.08 2.29-27.83-9.29-42.96-35.11L87.52-321.57q-15.13-25.26-8.85-53.8 6.29-28.54 29.55-46.67l52.43-40q-.43-4.74-.43-8.98v-17.96q0-4.24.43-8.98l-52.43-39.43q-23.83-18.13-29.83-46.67-6-28.55 9.13-54.37l57.74-101.22q15.13-25.26 42.67-34.83 27.55-9.56 54.81 2l63.13 26q7.61-5.17 15.09-9.63 7.47-4.46 15.52-7.76l9-67.13q4-29.39 25.48-48.81 21.47-19.41 51.3-19.41h115.48q29.83 0 51.3 19.41 21.48 19.42 25.48 48.81l9 67.13q8.48 3.3 16.31 7.76 7.82 4.46 15.43 9.63l61.44-26q27.26-11.56 55.08-2 27.83 9.57 42.96 34.83l57.74 101.22q15.13 25.82 9.13 54.37-6 28.54-29.83 46.67l-53 39.43q.44 4.74.44 8.98v8.98q0 4.74-.28 8.98-.29 4.24-1.16 8.98l53 39.43q23.83 18.13 29.83 46.67 6 28.55-9.13 54.37l-58.74 101.79q-15.13 25.26-42.67 34.82-27.55 9.57-54.81-2l-61.13-26q-7.61 5.18-15.09 9.92-7.47 4.74-15.52 8.04l-9 66.57q-4 28.82-25.48 48.24-21.47 19.41-51.3 19.41H422.26ZM480.3-340q58 0 99-41t41-99q0-58-41-99t-99-41q-58.43 0-99.21 41-40.79 41-40.79 99t40.79 99q40.78 41 99.21 41Z" style="fill:#fff;stroke:#fff;stroke-width:148;stroke-linejoin:round"/></g>
+  <g transform="translate(186.0 186.0) scale(0.22917) translate(0 960)"><path d="M422.26-60.78q-29.83 0-51.3-19.41-21.48-19.42-25.48-48.24l-9-66.57q-8.48-3.3-16.31-8.04-7.82-4.74-15.43-9.92l-61.44 26q-27.26 11.57-55.08 2.29-27.83-9.29-42.96-35.11L87.52-321.57q-15.13-25.26-8.85-53.8 6.29-28.54 29.55-46.67l52.43-40q-.43-4.74-.43-8.98v-17.96q0-4.24.43-8.98l-52.43-39.43q-23.83-18.13-29.83-46.67-6-28.55 9.13-54.37l57.74-101.22q15.13-25.26 42.67-34.83 27.55-9.56 54.81 2l63.13 26q7.61-5.17 15.09-9.63 7.47-4.46 15.52-7.76l9-67.13q4-29.39 25.48-48.81 21.47-19.41 51.3-19.41h115.48q29.83 0 51.3 19.41 21.48 19.42 25.48 48.81l9 67.13q8.48 3.3 16.31 7.76 7.82 4.46 15.43 9.63l61.44-26q27.26-11.56 55.08-2 27.83 9.57 42.96 34.83l57.74 101.22q15.13 25.82 9.13 54.37-6 28.54-29.83 46.67l-53 39.43q.44 4.74.44 8.98v8.98q0 4.74-.28 8.98-.29 4.24-1.16 8.98l53 39.43q23.83 18.13 29.83 46.67 6 28.55-9.13 54.37l-58.74 101.79q-15.13 25.26-42.67 34.82-27.55 9.57-54.81-2l-61.13-26q-7.61 5.18-15.09 9.92-7.47 4.74-15.52 8.04l-9 66.57q-4 28.82-25.48 48.24-21.47 19.41-51.3 19.41H422.26ZM480.3-340q58 0 99-41t41-99q0-58-41-99t-99-41q-58.43 0-99.21 41-40.79 41-40.79 99t40.79 99q40.78 41 99.21 41Z"/></g></g>
+  </svg>
+  <text x="100" y="50" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#3E0B0B">Rosenweg Mein Telefon</text>
+  <text x="100" y="72" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#7A4A45">Installation für macOS</text>
+  <line x1="32" y1="98" x2="608" y2="98" stroke="#D32F2F" stroke-opacity="0.25" stroke-width="1"/>
+  <!-- Pfeil von der App zu Programme -->
+  <path d="M250 205 C 290 170 350 170 390 205" fill="none" stroke="#D32F2F" stroke-width="5" stroke-linecap="round" marker-end="url(#spitze)"/>
+  <text x="320" y="252" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3E0B0B">In „Programme“ ziehen</text>
+  <!-- Fuss -->
+  <text x="320" y="398" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#7A4A45">Danach im Ordner „Programme“ starten · rosenweg4303.ch</text>
+</svg>

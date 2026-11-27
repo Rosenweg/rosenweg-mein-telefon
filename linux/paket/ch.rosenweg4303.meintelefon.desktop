@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Rosenweg Mein Telefon
+Comment=Deine Rosenweg-Nummer einstellen: Weiterleitung, Voicemail, Geräte, Anmelde-QR für geteilte Telefone und Apps.
+Exec=rosenweg-mein-telefon
+# Name im Symbol-Thema (hicolor), kein Pfad.
+Icon=rosenweg-mein-telefon
+Terminal=false
+# Dateiname = GTK-Anwendungskennung (APPLICATION_ID in linux/CMakeLists.txt).
+StartupWMClass=ch.rosenweg4303.meintelefon
+# Kategorie "Rosenweg" im Startmenue der Stationen (os-stationen 60-programme.sh)
+Categories=Office;Utility;
+Keywords=Rosenweg;

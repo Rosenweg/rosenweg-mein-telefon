@@ -1,0 +1,4 @@
+#!/bin/sh
+# Startet Rosenweg Mein Telefon aus /opt/rosenweg-mein-telefon (Flutter-Buendel sucht data/
+# und lib/ neben der echten Programmdatei; wie rosenweg-profil, rosenweg-vm).
+exec /opt/rosenweg-mein-telefon/rosenweg_mein_telefon "$@"
