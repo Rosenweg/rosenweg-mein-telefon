@@ -51,7 +51,7 @@ class _HauptState extends State<Haupt> {
     final s = widget.sitzung;
     final logo = Padding(
       padding: const EdgeInsets.all(10),
-      child: Image.asset('assets/logo/rosenweg-mein-telefon-klein.png', semanticLabel: 'Logo'),
+      child: FarbLogo(sitzung: s, klein: true),
     );
     return ListenableBuilder(
       listenable: s.rechte,
